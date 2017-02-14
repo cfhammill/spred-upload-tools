@@ -20,10 +20,14 @@ for names in MR160local_raw:
 
 # 2. IDENTIFY MR SESSIONS ALREADY UPLOADED TO SPReD
 
+# without supplying username or password, program asks user to enter in command line
 spred = pyxnat.Interface(server='https://spred.braincode.ca/spred')
 
-MR160spredJSON = spred.select('xnat:mrSessionData',['xnat:mrSessionData/XNAT_COL_MRSESSIONDATALABEL']).all()
-# outputs as a json table
+# apply constraints to retrieve only MR sessions from 'PND03_HSC' project
+constraints = [('xnat:subjectData/PROJECT', '=', 'PND03_HSC')]
+
+# retrieve json table with one MR session per row and the column MR session label (otherwise, retrieves accession #)
+MR160spredJSON = spred.select('xnat:mrSessionData',['xnat:mrSessionData/XNAT_COL_MRSESSIONDATALABEL']).where(constraints)
 
 # pyxnat has its own set of arguments to convert json to list of lists
 MR160spredList = MR160spredJSON.as_list()
