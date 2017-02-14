@@ -29,7 +29,7 @@ MR160spredJSON = spred.select('xnat:mrSessionData',['xnat:mrSessionData/XNAT_COL
 MR160spredList = MR160spredJSON.as_list()
 
 #unpack list and remove header
-MR160spred = list(itertools.chain(*newSessionLabel[1:]))
+MR160spred = list(itertools.chain(*MR160spredList[1:]))
 
 # convert MR160spred labeling to MR160local
 MR160spredmod = []
