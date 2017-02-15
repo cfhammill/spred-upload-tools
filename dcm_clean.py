@@ -7,7 +7,7 @@ import glob
 import os, shlex, subprocess
 import numpy
 import fnmatch
-from diff_spred_local_alt import spredToDo
+from diff_spred_local import spredToDo
 
 program_name = 'dcm_clean.py'
 
@@ -87,10 +87,11 @@ def main():
 
     options, args = parser.parse_args()
 
-    if len(args) == 1:
-        dir_out_base = args
-    else:
-        parser.error("Incorrect number of arguments")
+    #if len(args) == 1:
+    #    dir_out_base = args
+    #else:
+    #    parser.error("Incorrect number of arguments")
+    dir_out_base = '/hpf/largeprojects/MICe/mjoseph/MR160_zipped'
     
     lut_dcm_hdrs = load_dcm_list(options.fname_dcm_list)
     lut_scan_type = load_lut_scan_type(options.fname_lut_scan_type)    
