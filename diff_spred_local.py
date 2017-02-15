@@ -11,12 +11,20 @@ import pyxnat
 # find all MR Session subdirectories
 MR160local_raw  = os.listdir('/micehome/mjoseph/data8/mrdata/MR160')
 
+# make dictionary of site code tags; when new site codes come in, add them to the dictionary 
+siteCodeDict = {
+    'HSC':'MR160-088', 
+    'HBK':'MR160-105', 
+    'LHR':'MR160-113', 
+    'MCU':'MR160-114'
+}
+
 # remove backups, withdrawn sessions, tests and QC scans
 MR160local = []
-Tags = ('MR160-088', 'MR160-105', 'MR160-113', 'MR160-114')
 for names in MR160local_raw:
-    if names.startswith(Tags):    
-        MR160local.append(names)
+    for codes in siteCodeDict:
+        if names.startswith(siteCodeDict[codes]):    
+            MR160local.append(names)
 
 # 2. IDENTIFY MR SESSIONS ALREADY UPLOADED TO SPReD
 
@@ -40,18 +48,14 @@ MR160spredmod = []
 for row in MR160spred:
     if len(row.split('_')) == 6:
         [Study, SiteCode, Subj, Visit, SessionNum, SessionType] = row.split('_')
-        if SiteCode=='HSC':
-            Site = '088'
-        else:
-            Site = '105'
-        sessionID = 'MR160-%s-%s-%s' % (Site, Subj, Visit)
+        for sites in siteCodeDict:
+            Site = siteCodeDict[SiteCode]
+        sessionID = '%s-%s-%s' % (Site, Subj, Visit)
     else: 
-        [Study, Site, Subj, Visit, SessionNum, SessionType, Deleted] = row.split('_')
-        if SiteCode=='HSC':
-            Site = '088'
-        else:
-            Site = '105'        
-        sessionID = 'MR160-%s-%s-%s-deleted' % (Site, Subj, Visit)
+        [Study, SiteCode, Subj, Visit, SessionNum, SessionType, Deleted] = row.split('_')
+        for sites in siteCodeDict:
+            Site = siteCodeDict[SiteCode]   
+        sessionID = '%s-%s-%s-deleted' % (Site, Subj, Visit)
     MR160spredmod.append(sessionID)
 
 # 3. FIND DIFFERENCE BETWEEN MR SESSIONS IN LOCAL MR160 DIRECTORY and SPReD
