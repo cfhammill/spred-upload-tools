@@ -28,6 +28,16 @@ def run_cmd(sys_cmd, debug, verbose):
     else:
         return '',''
 
+def load_site_codes(fname_site_codes):
+    siteCodeDict = {}
+    if not os.path.exists(fname_site_codes):
+        raise SystemExit, 'ERROR - Parameter File - File not found: %s' % (fname_site_codes,)
+    
+    file_site_codes = open(fname_site_codes,'r')
+    for line_site in file_site_codes:
+        siteCodeDict[line.split(':')[0].strip(' ')] = line.split(':')[1].strip(' \n')
+    return siteCodeDict
+    
 def load_dcm_list(fname_dcm_list):
     lut_dcm_hdrs={}
 #   Loads list of dicom headers to change, and their new value
@@ -74,6 +84,8 @@ def main():
     usage = "Usage: "+program_name+" <options> dir_out_base \n" + \
             "   or  "+program_name+" --help";
     parser = OptionParser(usage)
+    parser.add_option("--sites", type="string", dest="fname_site_codes", 
+                        default="siteCodeDict.txt", help="Lut to convert internal site codes to SPReD site codes [default = siteCodeDict.txt]") 
     parser.add_option("--lut_ST", type="string", dest="fname_lut_scan_type",
                         default="lut_scan_type.cfg", help="Lut to convert default Scan Description into defined ScanType [default = lut_scan_type.cfg]")
     parser.add_option("--lut_dcm_list", type="string", dest="fname_dcm_list",
@@ -87,12 +99,12 @@ def main():
 
     options, args = parser.parse_args()
 
-    #if len(args) == 1:
-    #    dir_out_base = args
-    #else:
-    #    parser.error("Incorrect number of arguments")
-    dir_out_base = '/hpf/largeprojects/MICe/mjoseph/MR160_zipped'
-    
+    if len(args) == 1:
+        dir_out_base = args
+    else:
+        parser.error("Incorrect number of arguments")
+
+    siteCodeDict = load_site_codes(options.fname_site_codes)
     lut_dcm_hdrs = load_dcm_list(options.fname_dcm_list)
     lut_scan_type = load_lut_scan_type(options.fname_lut_scan_type)    
         
