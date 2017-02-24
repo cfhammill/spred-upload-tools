@@ -23,11 +23,11 @@ To learn how to use these scripts, consult the Workflow below and make sure you 
 ## Dependencies
 1. Python 2.7+
 2. Python packages to install:
-+ requests
-+ lxml
-+ urllib2
-+ numpy
-+ pyxnat
+    - requests
+    - lxml
+    - urllib2
+    - numpy
+    - pyxnat
 3. dcmodify (part of the [DICOM Toolkit] [6])
 
 <!---
