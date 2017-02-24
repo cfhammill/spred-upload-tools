@@ -63,10 +63,10 @@ spredToDo = list(set(MR160local) - set(MR160spredmod))
 # Retrieves all the deleted MR sessions from SPReD; but also found PND03_HBK_0446_02_SE01_MR
 spredDeleted = list(set(MR160spredmod) - set(MR160local))
 
-print "The following MR sessions haven't been uploaded to SPReD yet:"
-for i in spredToDo:
-    print i
+#print "The following MR sessions haven't been uploaded to SPReD yet:"
+#for i in spredToDo:
+    #print i
 
-print "The following MR sessions have been deleted from SPReD:"
-for j in spredDeleted:
-    print j
+#print "The following MR sessions have been deleted from SPReD:"
+#for j in spredDeleted:
+    #print j
