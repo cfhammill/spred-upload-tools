@@ -35,7 +35,7 @@ def load_site_codes(fname_site_codes):
     
     file_site_codes = open(fname_site_codes,'r')
     for line_site in file_site_codes:
-        siteCodeDict[line.split(':')[0].strip(' ')] = line.split(':')[1].strip(' \n')
+        siteCodeDict[line_site.split(':')[0].strip(' ')] = line_site.split(':')[1].strip(' \n')
     return siteCodeDict
     
 def load_dcm_list(fname_dcm_list):
@@ -99,11 +99,11 @@ def main():
 
     options, args = parser.parse_args()
 
-    if len(args) == 1:
-        dir_out_base = args
-    else:
-        parser.error("Incorrect number of arguments")
-
+    #if len(args) == 2:
+        #dir_input, dir_out_base = args
+    #else:
+        #parser.error("Incorrect number of arguments")
+    dir_out_base = '/hpf/largeprojects/MICe/mjoseph/temp2'
     siteCodeDict = load_site_codes(options.fname_site_codes)
     lut_dcm_hdrs = load_dcm_list(options.fname_dcm_list)
     lut_scan_type = load_lut_scan_type(options.fname_lut_scan_type)    
