@@ -157,7 +157,7 @@ def main():
 
                     for fname_scan in list_dcm_files:
                     # print fname_scan
-                        dcmodify_string = '-i "(0010,0010)=%s" -i "(0010,0020)=%s" -i "(0008,103e)=%s" -i "(0020,0011)=%s"' % (new_subjectID, new_sessionName, new_scanType, dir_target_series_num)
+                        dcmodify_string = '-i "(0010,0010)=%s" -i "(0010,0020)=%s" -i "(0008,103e)=%s" -i "(0020,0011)=%s"' % (new_subjectID, new_sessionName, new_scanType, dir_target_series_num.lstrip('0'))
                         for curr_dcm_hdr_index in lut_dcm_hdrs:
                             curr_dcm_hdr_value = lut_dcm_hdrs[curr_dcm_hdr_index].strip('\n')
                             dcmodify_string = '%s -i "(%s)=%s"' % (dcmodify_string, curr_dcm_hdr_index, curr_dcm_hdr_value)
