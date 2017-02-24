@@ -121,12 +121,9 @@ def main():
             # pull subjectID from directory structure
             subjectID_raw = dir_input.split('/')[-2]
             [Study, Site, Subj, Visit] = subjectID_raw.split('-')
-
-            if Site=='088':
-                SiteCode = 'HSC'
-            else: # Site=='105':
-                SiteCode = 'HBK'
-
+            for code in siteCodeDict.keys():
+                if siteCodeDict[code] == Site:
+                    SiteCode = code
             subjectID = 'PND03_%s_%s' % (SiteCode,Subj)
             sessionSuffix = '%s_SE01_MR' % (Visit,)
     
