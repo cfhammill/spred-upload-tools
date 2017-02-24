@@ -6,7 +6,6 @@ import string
 import glob
 import os, shlex, subprocess
 import numpy
-import fnmatch
 from diff_spred_local import spredToDo
 
 program_name = 'dcm_clean.py'
