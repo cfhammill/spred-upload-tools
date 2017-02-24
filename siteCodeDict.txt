@@ -2,5 +2,4 @@ HSC : 088
 HBK : 105 
 LHR : 113 
 MCU : 114
-MCH : 114
 QNS : 394
