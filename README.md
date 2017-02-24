@@ -8,8 +8,7 @@ output: html_document
 1.00
 
 ### Authors
-Originally conceived by [Wayne Lee] [1] 
-Modifications by Michael Joseph
+Originally conceived by [Wayne Lee] [1] with modifications by Michael Joseph
 
 ## Introduction
 
