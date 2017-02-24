@@ -19,6 +19,32 @@ The upload process uses a Python script ([diff_spred_local.py][6]) to determine 
 To learn how to use these scripts, consult the Workflow below and make sure you have everything installed listed in the Dependencies section.
 
 ## Workflow
+1. diff_spred_local.py: identifies which MR sessions need to be uploaded to SPReD
+    - retrieves lists of MR sessions in local directory and on SPReD and determines the difference between the two
+        - specify local data directory path
+        - ensure that siteCodeDict.txt (site code dictionary) is up to date with the sites your data were obtained from
+        - enter SPReD username and password in command line
+2. dcm_clean.py: organizes and anonymizes MR session directories
+    - copies MR session directories, re-labels them according to SPReD naming conventions and de-identifies DICOM headers
+    - dcm_mod_basic.txt contains DICOM headers that are changed to set values globally
+    ```
+    0008,1030 : PND03           (Study Description)
+    0010,0030 : 19900101        (Patient Birthdate)
+    0010,0040 : 0               (Patient Sex)
+    0010,1010 : 0               (Patient Age)
+    0010,1020 : 0               (Patient Size)
+    0010,1030 : 0               (Patient Weight)
+    0010,2154 : 0               (Patient Telephone Numbers)
+    ```
+    - DICOM headers that are changed for each scan type in an MR session include:
+    ```
+    0008,103e: "Scan Type"      (Series Description)
+    0010,0010: "Subject ID"     (Patient Name)
+    0010,0020: "MR Session ID"  (Patient ID)
+    0020,0011: "Scan Series #"  (Series Number) --> added because some scans had duplicated series numbers
+    ```
+    - ensure that lut_scan_type.cfg (scan type dictionary) is up to date with all of the scanning modalities involved
+3. uploader.py: upload to SPReD
 
 ## Dependencies
 1. Python 2.7+
@@ -29,6 +55,10 @@ To learn how to use these scripts, consult the Workflow below and make sure you 
     - numpy
     - [pyxnat][8]
 3. dcmodify (part of the [DICOM Toolkit] [9])
+
+## To Do
+- add step to zip MR session directories
+- allow dcm_clean.py to take different types of input directories (eg. specific scanning directories, multiple MR sessions, etc.)
 
 <!---
 References
