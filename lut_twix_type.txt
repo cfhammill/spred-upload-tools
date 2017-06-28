@@ -1,0 +1,7 @@
+GABA_Cere_fmap_1            : MRS_GABA_Cere_met_1
+GABA_Cere_fmap_2            : MRS_GABA_Cere_met_2
+GABA_Cere_Water_Ref         : MRS_GABA_Cere_h2o
+Glu_ACC_fmap_Water_Ref      : MRS_Glu_ACC_h2o
+Glu_ACC_fmap_FID            : MRS_Glu_ACC_met
+Glu_Cere_fmap_Water_Ref     : MRS_Glu_Cere_h2o
+Glu_Cere_fmap_FID           : MRS_Glu_Cere_met

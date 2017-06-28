@@ -1,0 +1,51 @@
+PND03_HBK_0001_01_SE01_MR
+
+scans
+|___1 localizer
+    |__DICOM
+    |__SNAPSHOTS
+|___2 3DT1
+    |__DICOM
+    |__SNAPSHOTS
+|___3 2DT2
+    |__DICOM
+    |__SNAPSHOTS
+|___4 fMRI-RSN
+    |__DICOM
+    |__SNAPSHOTS
+|__11 MRS-localizer
+    |__DICOM
+    |__SNAPSHOTS    
+|___22 MRS_GABA_ACC_met
+    |__RDA
+    |__TWIX
+|___23 MRS_GABA_ACC_h2o
+    |__RDA
+    |__TWIX
+|___24 MRS_GABA_Cere_met
+    |__DICOM
+    |__RDA
+    |__TWIX
+    |__SNAPSHOTS
+|___25 MRS_GABA_Cere_h2o
+    |__RDA
+    |__TWIX
+|___26 MRS_Glu_ACC_met
+    |__DICOM
+    |__RDA
+    |__TWIX
+    |__SNAPSHOTS
+|___27 MRS_Glu_ACC_h2o
+    |__RDA
+    |__TWIX
+|___28 MRS_Glu_Cere_met
+    |__RDA
+    |__TWIX
+|___29 MRS_Glu_Cere_h2o
+    |__RDA
+    |__TWIX
+
+resources
+|__Behavioural_Output_files
+   |__PND03_HBK_0001_01_SE01_MR_fMRI-Faces.log
+   |__PND03_HBK_0001_01_SE01_MR_fMRI-SST.log
