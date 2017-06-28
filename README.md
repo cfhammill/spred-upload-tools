@@ -1,6 +1,7 @@
 ---
 output: html_document
 ---
+
 # spred-upload-tools
 
 ### Current Version
@@ -8,6 +9,7 @@ output: html_document
 2.00
 
 ### Authors
+
 Michael Joseph
 Thanks to Wayne Lee (https://github.com/wy2lee/DCM_QA) and Ben Rowland (https://github.com/openmrslab/suspect), whose code greatly informed mine.
 
@@ -54,8 +56,6 @@ To learn how to use these scripts, consult the Workflow below and make sure you 
     - lxml
     - urllib2
     - numpy
-    - [pyxnat][8]
-3. dcmodify (part of the [DICOM Toolkit] [9]) `sudo apt-get install dcmtk`
 
 ## To Do
 - add step to zip MR session directories
