@@ -93,7 +93,7 @@ def get_scan_type(scan_type, lut_scan_type):
     for key in lut_scan_type.keys():
         if re.search(key, scan_type, re.IGNORECASE):
             new_series_description = lut_scan_type[key]
-            return new_series_description
+    return new_series_description
 
 
 def diff_spred_local(local_src_dir, siteCodeDict):
