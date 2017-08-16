@@ -22,4 +22,3 @@ fMRI_Ortho_1                    : fMRI-TOM1
 fMRI_Ortho_2                    : fMRI-TOM2
 fMRI_Ortho_3                    : fMRI-TOM3
 MRS_Loc_t2                      : MRS-localizer
-jn_MEGA_GABA                    : MRS-localizer
