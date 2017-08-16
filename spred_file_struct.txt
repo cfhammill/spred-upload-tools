@@ -23,18 +23,14 @@ scans
     |__RDA
     |__TWIX
 |___24 MRS_GABA_Cere_met
-    |__DICOM
     |__RDA
     |__TWIX
-    |__SNAPSHOTS
 |___25 MRS_GABA_Cere_h2o
     |__RDA
     |__TWIX
 |___26 MRS_Glu_ACC_met
-    |__DICOM
     |__RDA
     |__TWIX
-    |__SNAPSHOTS
 |___27 MRS_Glu_ACC_h2o
     |__RDA
     |__TWIX
