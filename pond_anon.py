@@ -173,7 +173,7 @@ def anonymize_rda_hdr(header_string, anonymized_filename):
     patient_age = "(PatientAge: )([0-9]{3}Y)(\r\n)"
     patient_weight = "(PatientWeight: )(\d+.\d*)(\r\n)"
     study_description = "(StudyDescription: )(.+)(\r\n)"
-    protocol_name = "(ProtocolName: )(.+)(\r\n)"
+    #protocol_name = "(ProtocolName: )(.+)(\r\n)"
     series_description = "(SeriesDescription: )(.+)(\r\n)"
 
     [subjectID, sessionID, new_series_description] = [
@@ -209,9 +209,9 @@ def anonymize_rda_hdr(header_string, anonymized_filename):
         (match.group(1), "PND03", match.group(3))), 
         header_string)
 
-    header_string=re.sub(protocol_name, lambda match: "".join(
-        (match.group(1), new_series_description, match.group(3))), 
-        header_string)
+    #header_string=re.sub(protocol_name, lambda match: "".join(
+    #    (match.group(1), new_series_description, match.group(3))), 
+    #    header_string)
 
     header_string=re.sub(series_description, lambda match: "".join(
         (match.group(1), new_series_description, match.group(3))), 
