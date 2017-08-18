@@ -446,13 +446,12 @@ def main():
 
     # use argparse to identify input directory
     if args.scan_dirs:
-        scan_dirs = []
+        scan_dirs = args.scan_dirs
         for scan_dir in scan_dirs:
             if os.path.isdir(scan_dir):
-                scan_dirs.append(scan_dir)
-                for dir_input in scan_dirs:
-                    anonymize(dir_input, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, lut_rda_type, lut_twix_type)
+                anonymize(scan_dir, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, lut_rda_type, lut_twix_type)
     elif args.session_dirs:
+        session_dirs = args.session_dirs
         for session_dir in session_dirs:
             if os.path.isdir(session_dir):
                 scan_dirs = [os.path.abspath(os.path.join(session_dir, j)) for j in os.listdir(session_dir)]    
