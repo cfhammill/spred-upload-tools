@@ -12,9 +12,9 @@ Description: Takes MR scan directories or entire MR session directories
              patient information in the headers, and re-labels the series
              descriptions according to SPReD conventions.
 
-Caveat:      If subject or session does not exist on SPReD yet,
-             zipped session must contain DICOMs. If only non-DICOMs
-             present, none of them will get uploaded.
+Caveat:      For twix data, script tries to match files to a scan type that's already been created
+             If more than one of the same scan type already exists, script fails to identify scan type
+             Can anonymize manually
 
 Code assumes certain input directory structure:
 
