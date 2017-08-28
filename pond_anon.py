@@ -12,6 +12,10 @@ Description: Takes MR scan directories or entire MR session directories
              patient information in the headers, and re-labels the series
              descriptions according to SPReD conventions.
 
+Caveat:      If subject or session does not exist on SPReD yet,
+             zipped session must contain DICOMs. If only non-DICOMs
+             present, none of them will get uploaded.
+
 Code assumes certain input directory structure:
 
 MR_session
@@ -325,6 +329,7 @@ def anonymize_twix(filename, anonymized_filename):
             fout.write(header[-24:])
             fout.write(fin.read())
 
+            
 def anonymize(dir_input, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, lut_rda_type, lut_twix_type):
     # anonymize dicom
     if re.match('[0-9]{3}-*', dir_input.split('/')[-1]):
@@ -370,6 +375,7 @@ def anonymize(dir_input, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, 
                         os.makedirs(dir_out_full)
                     # output rda file doesn't include series_num, as per Steve Arnott's request
                     anonymize_rda(dir_input + '/' + scan_type, dir_out_full + '/' + scan_name) 
+                    
     # anonymize twix
     if dir_input.split('/')[-1] == 'twix':
         [subjectID, sessionID] = get_patientID(dir_input, siteCodeDict)
