@@ -148,6 +148,19 @@ def diff_spred_local(local_src_dir, siteCodeDict):
     return spredToDo
 
 
+def get_rda_field(field_name, rda_file):
+    try:
+        ps = subprocess.Popen(("head", "-n", "85", rda_file), stdout = subprocess.PIPE)
+        output = subprocess.check_output(('grep', field_name), stdin = ps.stdout)
+        output = output.decode("utf-8").split(':')[1].lstrip().rstrip()
+        ps.wait()
+        
+    except subprocess.CalledProcessError:
+        pass
+
+    return output
+  
+  
 def anonymize_rda_hdr(header_string, anonymized_filename):
     """
     Removes the PHI from the supplied rda header and returns the sanitized version.
@@ -313,7 +326,14 @@ def anonymize_twix(filename, anonymized_filename):
         
         with open(anonymized_filename, 'wb') as fout:
             
-            # first four bytes are the size of the header
+            aByte = fin.read(4)
+            while aByte != b"Conf":
+                aByte = fin.read(4)
+            
+            pos = fin.tell() - 12
+            fin.seek(pos)
+            
+            # next four bytes are the size of the header
             header_size = struct.unpack("I", fin.read(4))[0]
 
             # read the rest of the header minus the four bytes we already read
@@ -323,10 +343,26 @@ def anonymize_twix(filename, anonymized_filename):
             header_string = header[:-24].decode('latin-1')
 
             anonymized_header = anonymize_twix_hdr(header_string)
-
+            
+            # start from beginning of input file
+            fin.seek(0)
+            
+            # write junk before header to output file
+            fout.write(fin.read(pos))
+            
+            # read input file until end of header
+            fin.read(header_size)
+            
+            # write header size to output file
             fout.write(struct.pack("I", header_size))
+            
+            # write anonymized header to output file
             fout.write(anonymized_header.encode('latin-1'))
+            
+            # write last 24 bytes to output file that were removed before anonymizing
             fout.write(header[-24:])
+            
+            # write remainder of input file to output file
             fout.write(fin.read())
 
             
@@ -364,8 +400,8 @@ def anonymize(dir_input, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, 
         scan_types = os.listdir(dir_input)
         for scan_type in scan_types:
             if scan_type.endswith('.rda'):
-                (series_num, scan_name) = scan_type.split('-', 1)
-                series_num = int(series_num)
+                series_num = int(get_rda_field("SeriesNumber", scan_type))
+                scan_name = get_rda_field("SeriesDescription", scan_type)
                 new_series_description = get_scan_type(scan_name, lut_mrs_type)
                 dir_out_full = '%s/%s/%s/%03d-%s/RDA' % (dir_out_base, subjectID, sessionID, series_num, new_series_description)
                 if new_series_description is None:
@@ -373,8 +409,8 @@ def anonymize(dir_input, dir_out_base, siteCodeDict, lut_dcm_type, lut_dcm_hdr, 
                 else:
                     if not os.path.exists(dir_out_full):
                         os.makedirs(dir_out_full)
-                    # output rda file doesn't include series_num, as per Steve Arnott's request
-                    anonymize_rda(dir_input + '/' + scan_type, dir_out_full + '/' + scan_name) 
+                    # TO DO: remove series_num from output rda filename, as per Steve Arnott's request
+                    anonymize_rda(dir_input + '/' + scan_type, dir_out_full + '/' + scan_type) 
                     
     # anonymize twix
     if dir_input.split('/')[-1] == 'twix':
